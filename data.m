@@ -3,32 +3,31 @@ close all
 clc
 
 %% const data
-massa = 20; %kg
+mass = 20; %kg
 alfa  = deg2rad(3); %angolo di attacco
 rho = 1.225; %densità
 S_ala = .46*7.3;
-quota=100;
+altitude=100;
 %% Variable DATA (da modificare)
 v_cruise = 13;
 C_D = 0.029; 
-C_Dfriction = C_D;
-C_L = 0.5639;
-<<<<<<< HEAD
+% C_Dfriction = C_D;
+Time_stop_motor=200;
+
 
 %% Computed DATA
 D = 0.5*rho*v_cruise^2*S_ala*C_D;
 Thrust = D;
-L =  0.5*rho*v_cruise^2*S_ala*C_L;
-peso = massa*9.8;
-CL = peso/(0.5*rho*v_cruise^2*S_ala);
 
-attrito = Thrust*0.01; % da definire
-=======
-% attrito = Thrust*0.01; % da definire
-%% Computed DATA
-D = 0.5*rho*v_cruise^2*S_ala*C_D;
-Thrust = D;
-L =  0.5*rho*v_cruise^2*S_ala*C_L
-peso = massa*9.8;
-CL = peso/(0.5*rho*v_cruise^2*S_ala);
->>>>>>> 7491c91ff31720674e6cbd23f4751fd08fb9ff64
+weight = mass*9.8;
+CL = weight/(0.5*rho*v_cruise^2*S_ala);
+L =  0.5*rho*v_cruise^2*S_ala*CL;
+%%% Modfiche TOM
+%% polare
+polare = readmatrix("polare.csv");
+angoli = linspace(polare(1,1),polare(end,1));
+polare2 = spline(polare(:,1),polare(:,2),angoli);
+%% parachute
+CD_parachute = 0.3; %da modificare prendendo estrapolazione dati da paper in funzione della veloctià
+% diam_parahute = 30*0.01;% [m] diametro paracadute 30 cm
+S_parachute = S_ala;% area cerchio paracadute
