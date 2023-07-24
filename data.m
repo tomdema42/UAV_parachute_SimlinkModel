@@ -37,7 +37,7 @@ T = 8*diam_parachute/10^.9
 % sim mod_v1.slx
 % clc
 % 
-plot(out.vel_para.Data,out.Cd_para.Data)
+% plot(out.vel_para.Data,out.Cd_para.Data)
 % xlabel(" X [m]")
 % ylabel(" Z [m]")
 % grid on
