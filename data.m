@@ -32,7 +32,7 @@ CD_parachute = [1.7,1.3,1.10,0.9,0.87,0.85,0.84,0.82,0.81,0.80]; %da modificare 
 V_parachute = linspace(3,12,10);
 diam_parachute = 3.04;% [m] diametro paracadute 
 S_parachute = pi*(diam_parachute/2)^2;% area cerchio paracadute
-T = 8*diam_parachute/10^.9
+% T = 8*diam_parachute/10^.9
 
 % sim mod_v1.slx
 % clc
