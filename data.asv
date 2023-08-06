@@ -52,6 +52,36 @@ T = 8*diam_parachute/10^.9; % paper Guglieri (il Cirrus si apre in 5 - 7 s)
 Tempo = 4*diam_parachute/(15.5*.85); % paper Knacke (tempo di inflaction) 
                                      % ci prende addirittura bene (assurdo)
                                      % Consideriamo Solid Flat Circular Parachute
-
+                                     
 CD_para=weight/(0.5*rho*v_discesa^2*S_parachute);
 
+
+%% Funzione Calcolo densità
+
+function rho = densita_a_quota(quota)
+% Calcola la densità dell'aria a una determinata quota
+% utilizzando l'equazione di atmosfera standard
+% Input:
+%   - quota: quota in metri
+% Output:
+%   - rho: densità dell'aria in kg/m^3
+
+% Costanti atmosfera standard
+R = 287.058; % costante dei gas dell'aria [J/(kg*K)]
+g = 9.81; % accelerazione gravitazionale [m/s^2]
+T0 = 288.15; % temperatura al livello del mare [K]
+P0 = 101325; % pressione al livello del mare [Pa]
+rho0 = 1.225; % densità dell'aria al livello del mare [kg/m^3]
+L = -0.0065; % gradiente termico adiabatico [K/m]
+M = 0.0289644; % massa molare dell'aria [kg/mol]
+g = 9.80665; % accelerazione gravitazionale standard [m/s^2]
+
+% Calcolo della temperatura a quota
+T = T0 + L * quota;
+
+% Calcolo della pressione a quota
+P = P0 * (1 + L * quota / T0)^(-g * M / (R * L));
+
+% Calcolo della densità a quota
+rho = P / (R * T);
+end
