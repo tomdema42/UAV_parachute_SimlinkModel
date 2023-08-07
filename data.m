@@ -45,7 +45,7 @@ polare2 = spline(polare(:,1),polare(:,2),angoli);
 % CD_parachute = [1.7,1.3,1.10,0.9,0.87,0.85,0.84,0.82,0.81,0.80]; %da modificare prendendo estrapolazione dati da paper in funzione della veloctià
 % V_parachute = linspace(3,12,10);
 diam_parachute = 2.7;% [m] diametro paracadute 
-
+chord=2;
 
 S_parachute = pi*(diam_parachute/2)^2;% area cerchio paracadute
 T = 8*diam_parachute/10^.9; % paper Guglieri (il Cirrus si apre in 5 - 7 s)
