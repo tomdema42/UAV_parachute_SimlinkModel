@@ -2,19 +2,20 @@ clear
 close all
 clc
 
-
 %% Aggiornato con dati adatti ad Amelia 1.0
 
 Time_simulation=400;
 dt=0.01;
 
-
 %% const data
 altitude=250;
+parachute_mass=0.250;
 mass = 15; %kg
+total_mass=mass+parachute_mass;
 alfa  = deg2rad(2); %angolo di attacco
 % rho = densita_a_quota(altitude); %densità
 rho=1.1959; % Preso da Simulink
+% rho=1.255;
 S_ala = 1.484; %senza winglet
 
 %% Variable DATA (da modificare)
@@ -26,62 +27,35 @@ CD_caduta = 1.01; %VSP
 
 %% Computed DATA
 
-
 CL = 0.691;
 weight = mass*9.8;
 v_cruise = sqrt(weight/(0.5*rho*S_ala*CL));
 D = 0.5*rho*v_cruise^2*S_ala*C_D;
 Thrust = D;
 L =  0.5*rho*v_cruise^2*S_ala*CL;
-v_discesa = 5;
-
-
+v_discesa = 5.1;
 
 %% polare
+
 polare = readmatrix("polare.csv");
 angoli = linspace(polare(1,1),polare(end,1));
 polare2 = spline(polare(:,1),polare(:,2),angoli);
+
 %% parachute
 % CD_parachute = [1.7,1.3,1.10,0.9,0.87,0.85,0.84,0.82,0.81,0.80]; %da modificare prendendo estrapolazione dati da paper in funzione della veloctià
 % V_parachute = linspace(3,12,10);
 diam_parachute = 2.7;% [m] diametro paracadute 
+chord=3.050;
 
-
-S_parachute = pi*(diam_parachute/2)^2;% area cerchio paracadute
-T = 8*diam_parachute/10^.9; % paper Guglieri (il Cirrus si apre in 5 - 7 s)
-Tempo = 4*diam_parachute/(15.5*.85); % paper Knacke (tempo di inflaction) 
-                                     % ci prende addirittura bene (assurdo)
-                                     % Consideriamo Solid Flat Circular Parachute
-                                     
+S_parachute = pi*(diam_parachute/2)^2;  % area cerchio paracadute
+T = 8*diam_parachute/10^.9;             % paper Guglieri (il Cirrus si apre in 5 - 7 s)
+Tempo = 4*diam_parachute/(15.5*.85);    % paper Knacke (tempo di inflaction) 
+                                        % ci prende addirittura bene (assurdo)
+                                        % Consideriamo Solid Flat Circular Parachute
 CD_para=weight/(0.5*rho*v_discesa^2*S_parachute);
 
 
-%% Funzione Calcolo densità
 
-function rho = densita_a_quota(quota)
-% Calcola la densità dell'aria a una determinata quota
-% utilizzando l'equazione di atmosfera standard
-% Input:
-%   - quota: quota in metri
-% Output:
-%   - rho: densità dell'aria in kg/m^3
-
-% Costanti atmosfera standard
-R = 287.058; % costante dei gas dell'aria [J/(kg*K)]
-g = 9.81; % accelerazione gravitazionale [m/s^2]
-T0 = 288.15; % temperatura al livello del mare [K]
-P0 = 101325; % pressione al livello del mare [Pa]
-rho0 = 1.225; % densità dell'aria al livello del mare [kg/m^3]
-L = -0.0065; % gradiente termico adiabatico [K/m]
-M = 0.0289644; % massa molare dell'aria [kg/mol]
-g = 9.80665; % accelerazione gravitazionale standard [m/s^2]
-
-% Calcolo della temperatura a quota
-T = T0 + L * quota;
-
-% Calcolo della pressione a quota
-P = P0 * (1 + L * quota / T0)^(-g * M / (R * L));
-
-% Calcolo della densità a quota
-rho = P / (R * T);
-end
+A=1;
+CN=0;
+CA=10;
