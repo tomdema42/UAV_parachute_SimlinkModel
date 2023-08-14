@@ -1,4 +1,5 @@
 %%%% PLOTTER
+% Lanciare per sezioni (non tutto insieme)
 
 %% TRAJECTORY out.sim_position
 close all
@@ -14,6 +15,7 @@ zlabel('z [m]')
 title('UAV Trajectory')
 ylim([80, 160]) 
 %  saveas(figure(1),[pwd '/images/trajectory.png'])
+
 %% Altitude plot out.sim_position
 figure(2)
 plot(time,z,'k',LineWidth=1.5)
@@ -27,6 +29,7 @@ title('UAV Altitude')
 xlim([80, 160]) 
 legend('','Time stop motor','Time start parachute',Location='best')
 %  saveas(figure(2),[pwd '/images/altitude.png'])
+
  %% Forza paracadute out.sim_Fpara
 close all
 time = out.sim_Fpara.Time;
@@ -60,8 +63,21 @@ ylabel('velocity [m/s]')
 title('Velocity')
 grid on
 xlim([80, 160]) 
-legend('u','w','Time stop motor','Time start parachute',Location='best')
+% legend('u','w','Time stop motor','Time start parachute',Location='best')
 % saveas(figure(4),[pwd '/images/velocity.png'])
+
+%% Velocità comprata senza paracadute (maneggiare con cura la sezione ->
+% -> assicurarsi che sia lanciata la sim senza paracadute)
+hold on
+time = out.sim_velocity.Time;
+u = out.sim_velocity.Data(:,1);
+w = out.sim_velocity.Data(:,3);
+plot(time,u,'-.c',LineWidth=1.5)
+hold on
+plot(time,w,'-.','Color',[0.8500 0.6250 0.0980],LineWidth=1.5)
+title('Velocity compared with no parachute')
+legend('u','w','Time stop motor','Time start parachute','u NO parachute','w NO parachute',Location='best')
+
 %% Energy out.sim_energy
 close all 
 % time = out.sim_energy.Time;
