@@ -35,15 +35,9 @@ Thrust = D;
 L =  0.5*rho*v_cruise^2*S_ala*CL;
 v_discesa = 5.1;
 
-%% polare
-
-polare = readmatrix("polare.csv");
-angoli = linspace(polare(1,1),polare(end,1));
-polare2 = spline(polare(:,1),polare(:,2),angoli);
 
 %% parachute
-% CD_parachute = [1.7,1.3,1.10,0.9,0.87,0.85,0.84,0.82,0.81,0.80]; %da modificare prendendo estrapolazione dati da paper in funzione della veloctià
-% V_parachute = linspace(3,12,10);
+
 diam_parachute = 2.7;% [m] diametro paracadute 
 chord=3.050;
 
