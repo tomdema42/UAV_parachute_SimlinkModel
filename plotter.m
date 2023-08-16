@@ -36,15 +36,16 @@ time = out.sim_Fpara.Time;
 Fpara = out.sim_Fpara.Data;
 
 figure(3)
-plot(time,Fpara,'k')
+plot(time,Fpara,'k',LineWidth=1.5)
 hold on
 xline(Time_stop_motor,'r--',LineWidth=1.5)
 xline(Time_start_parachute,'b--',LineWidth=1.5)
+xline(time(end),'--','Color',[0.8500 0.6250 0.0980],LineWidth=1.5)
 xlabel('time [s]')
 ylabel('Force [N]')
 title('Force on parachute')
 grid on
-legend('','Time stop motor','Time start parachute',Location='best')
+legend('','Time stop motor','Time start parachute','Ground impact',Location='best')
 xlim([80, 160]) 
 % saveas(figure(3),[pwd '/images/force_parachute.png'])
 %% Velocity u & w out.sim_velocity
@@ -82,11 +83,10 @@ legend('u','w','Time stop motor','Time start parachute','u NO parachute','w NO p
 close all 
 % time = out.sim_energy.Time;
 %  E = out.sim_energy.Data(:,1);
-%  time_NOparachute = out.sim_energy_NOpara.Time; %fare Sim togliendo
-%  Parachute
-%  E_NOparachute = out.sim_energy_NOpara.Data(:,1);
+ time_NOparachute = out.sim_energy_NOpara.Time; %fare Sim togliendo Parachute
+ E_NOparachute = out.sim_energy_NOpara.Data(:,1);
 
-%%
+%% Energia e confronto con paracadute
  figure(5)
 plot(time,E,'k',LineWidth=1.5)
 hold on
@@ -99,7 +99,7 @@ xlabel('time [s]')
 ylabel('Energy [J]')
 grid on
 xlim([80 160])
-title('Kinetic energy')
+title('Kinetics energy')
 legend('Parachute','NO parachute','Time stop motor','Time start parachute',Location='best')
 % saveas(figure(5),[pwd '/images/energy_NOpara.png'])
 
