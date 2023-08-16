@@ -19,11 +19,11 @@ rho=1.1959; % Preso da Simulink
 S_ala = 1.484; %senza winglet
 
 %% Variable DATA (da modificare)
-% v_cruise = 15;
+
 C_D = 0.024; 
-Time_stop_motor=200;
+Time_stop_motor=100;
 Time_start_parachute= Time_stop_motor+15;
-CD_caduta = 1.01; %VSP
+CD_z = 1.01; %VSP
 
 %% Computed DATA
 
